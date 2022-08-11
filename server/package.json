@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "*",
+    "cors": "2.8.4",
+    "express": "4.16.3",
+    "pg": "8.0.3",
+    "react-router-dom": "^6.3.0",
+    "redis": "2.8.0"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
