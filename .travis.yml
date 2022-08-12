@@ -1,0 +1,47 @@
+language: generic 
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t osvi52/multi-docker -f ./client/Dockerfile.dev ./client
+
+##cache:
+##  directories:
+##  - node_modules
+
+script:
+  - docker run -e CI=true osvi52/multi-docker npm test
+
+after_success:
+  - docker build -t osvi52/multi-client ./client
+  - docker build -t osvi52/multi-nginx ./nginx
+  - docker build -t osvi52/multi-server ./server
+  - docker build -t osvi52/multi-worker ./worker
+
+#Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+#take those images and push them to docker hub
+  - docker push osvi52/multi-client 
+  - docker push osvi52/multi-nginx
+  - docker push osvi52/multi-server 
+  - docker push osvi52/multi-worker 
+
+##deploy:
+##  provider: elasticbeanstalk
+##  region: "eu-west-2"
+  ###http://dockerreact-env.eba-hayabsde.eu-west-2.elasticbeanstalk.com/
+##  app: "multi-docker"
+##  env: "Dockerreact-env"
+##  bucket_name: "elasticbeanstalk-eu-west-2-891870530779"
+##  bucket_path: "multi-docker" ##app name
+##  on:
+##    branch: master
+##  access_key_id: $AWS_ACCESS_KEY
+##  secret_access_key: "$AWS_SECRET_KEY"
+
+
+
+
+
