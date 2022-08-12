@@ -29,7 +29,7 @@ services:
   ###    - /app/node_modules
   ###    - ./server:/app
    
-  ###    - .:/usr/app/node_modules
+      - /usr/app/node_modules
       - ./server:/usr/app    
     environment:
       - REDIS_HOST=redis
@@ -48,7 +48,7 @@ services:
     ###  - /app/node_modules
     ###  - ./client:/app
 
-    ##  - .:/usr/app/node_modules
+      - /usr/app/node_modules
       - ./client:/usr/app 
     environment:
       - WDS_SOCKET_PORT=0
@@ -62,7 +62,7 @@ services:
       ###- /app/node_modules
       ###- ./worker:/app
 
-      ###- .:/usr/app/node_modules
+      - /usr/app/node_modules
       - ./worker:/usr/app 
     environment:
       - REDIS_HOST=redis
